@@ -315,4 +315,4 @@ def test_tf(test_image_path=None, model_path='./models/model-72', maxlen=30):
     generated_sentence = ' '.join(generated_words)
     print generated_sentence
 
-test_tf()
+test_tf('/home/sharon/11775_VTT/acoustic-guitar-player.jpg')
