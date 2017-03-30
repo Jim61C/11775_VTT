@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import cPickle
 
-from tensorflow.models.rnn import rnn_cell
+from tensorflow.contrib.rnn import BasicLSTMCell
 import tensorflow.python.platform
 from keras.preprocessing import sequence
 from collections import Counter
@@ -33,7 +33,7 @@ class Caption_Generator():
 
         self.bemb = self.init_bias(dim_embed, name='bemb')
 
-        self.lstm = rnn_cell.BasicLSTMCell(dim_hidden)
+        self.lstm = BasicLSTMCell(dim_hidden)
 
         #self.encode_img_W = self.init_weight(dim_image, dim_hidden, name='encode_img_W')
         self.encode_img_W = tf.Variable(tf.random_uniform([dim_image, dim_hidden], -0.1, 0.1), name='encode_img_W')
@@ -262,7 +262,7 @@ def test(test_feat='./guitar_player.npy', model_path='./models/tensorflow/model-
     generated_word_index = np.hstack(generated_word_index)
 
     generated_sentence = [ixtoword[x] for x in generated_word_index]
-    print generated_sentence
+
 
 def read_image(path):
 
@@ -271,8 +271,8 @@ def read_image(path):
          img = img[:,:,:3]
 
      img = img[None, ...]
-     return im
-g
+     return img
+
 
 def test_tf(test_image_path=None, model_path='./models/model-72', maxlen=30):
     with open(vgg_path) as f:
@@ -314,6 +314,5 @@ def test_tf(test_image_path=None, model_path='./models/model-72', maxlen=30):
     generated_words = generated_words[:punctuation]
     generated_sentence = ' '.join(generated_words)
     print generated_sentence
-
 
 test_tf()
