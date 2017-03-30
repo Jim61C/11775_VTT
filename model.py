@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import cPickle
 
-from tensorflow.models.rnn import rnn_cell
+from tensorflow.contrib.rnn import BasicLSTMCell
 import tensorflow.python.platform
 from keras.preprocessing import sequence
 from collections import Counter
@@ -33,7 +33,7 @@ class Caption_Generator():
 
         self.bemb = self.init_bias(dim_embed, name='bemb')
 
-        self.lstm = rnn_cell.BasicLSTMCell(dim_hidden)
+        self.lstm = BasicLSTMCell(dim_hidden)
 
         #self.encode_img_W = self.init_weight(dim_image, dim_hidden, name='encode_img_W')
         self.encode_img_W = tf.Variable(tf.random_uniform([dim_image, dim_hidden], -0.1, 0.1), name='encode_img_W')
